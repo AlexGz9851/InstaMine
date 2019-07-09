@@ -11,9 +11,9 @@ public class ParseApp extends Application {
         super.onCreate();
 
         final Parse.Configuration conf = new Parse.Configuration.Builder(this)
-                .applicationId("zzz12300212")
-                .clientKey("alex")
-                .server("http://instamine.herokuapp.com/parse")
+                .applicationId(getString(R.string.app_name_server))
+                .clientKey(getString(R.string.master_key))
+                .server(getString(R.string.server_url))
                 .build();
 
         Parse.initialize(conf);

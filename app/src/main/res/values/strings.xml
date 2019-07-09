@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">InstaMine</string>
-    <string name="password">Password</string>
+    <string name="password_hint">Write your password</string>
+    <string name="sign_up">Sign up</string>
     <string name="login">Log in</string>
-    <string name="username">Username</string>
+    <string name="username_hint">Put your username</string>
+    <string name="email_hint">Write an email</string>
 </resources>
