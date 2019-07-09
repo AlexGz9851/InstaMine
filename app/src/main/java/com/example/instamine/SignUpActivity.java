@@ -1,5 +1,6 @@
 package com.example.instamine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.parse.SignUpCallback;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    ParseUser user;
     EditText usernameET, passwordET, emailET;
     Button signUp_btn;
     @Override
@@ -40,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signUp(String username, String password, String email){
         // Create the ParseUser
-        ParseUser user = new ParseUser();
+        user = new ParseUser();
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
@@ -51,12 +53,17 @@ public class SignUpActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     // user was created.
-                    //TODO GO TO HOME ACTIVITY
-                    //TODO if intent, make sure finish this activity, user cannot have saved their info.
+                    // GO TO HOME ACTIVITY
+                    // if intent, make sure finish this activity, user cannot have saved their info.
                     Log.d("SignUpActivity", " sign up successful");
+                    Intent i = new Intent(SignUpActivity.this, HomeActivity.class);
+                    startActivity(i);
+                    finish();
+
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
+                    //TODO
                     Log.e("SignUpActivity", "Couldnt sign up");
                 }
             }
