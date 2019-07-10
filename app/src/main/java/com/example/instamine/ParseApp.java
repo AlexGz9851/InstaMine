@@ -3,6 +3,7 @@ package com.example.instamine;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 public class ParseApp extends Application {
 
@@ -10,6 +11,7 @@ public class ParseApp extends Application {
     public void onCreate(){
         super.onCreate();
 
+        ParseObject.registerSubclass(Post.class);
         final Parse.Configuration conf = new Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.app_name_server))
                 .clientKey(getString(R.string.master_key))

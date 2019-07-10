@@ -45,7 +45,7 @@
         android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:clickable="true"
-        android:onClick="close"
+
         android:foregroundGravity="right"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:tint="#000000"
