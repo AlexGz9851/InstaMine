@@ -1,6 +1,7 @@
 package com.example.instamine;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,14 +47,32 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         //get data according position
-        Post post = this.posts.get(i);
+        final Post post = this.posts.get(i);
+
         //populating views according data
         viewHolder.tvDescription.setText(post.getDescription());
-        ParseUser postUser = post.getUser();
+        final ParseUser postUser = post.getUser();
         viewHolder.tvUsername.setText(postUser.getUsername());
         viewHolder.tvGeolocalization.setText(post.getGeolocalization());
+        viewHolder.tvTimestamp.setText(Utilities.getRelativeTimeAgo(post.getCreatedAt()));
         ParseFile photo = post.getImage();
         ParseFile profilePhoto = postUser.getParseFile("ProfilePhoto");
+
+        viewHolder.ivPost.setOnClickListener(new View.OnClickListener() {
+            //Cambio de actividad a post
+            @Override
+            public void onClick(View v) {
+                PostFragment postFragment= new PostFragment();
+                ((HomeActivity) v.getContext()).replaceFragment(postFragment);
+
+                //passing to new activity post
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("post", post);
+                postFragment.setArguments(bundle);
+
+            }
+        });
+
         try {
             int radius = 70;
             int margin = 10;
@@ -94,7 +113,7 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
     // create the viewHolder
     public static class  ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPost, ivProfileUser, ivLike, ivComment, ivDirectMessage;
-        TextView tvUsername, tvGeolocalization, tvDescription;
+        TextView tvUsername, tvGeolocalization, tvDescription, tvTimestamp;
 
         public ViewHolder(View v){
             super(v);
@@ -107,14 +126,9 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
             tvUsername = (TextView) v.findViewById(R.id.tv_user_post);
             tvGeolocalization = (TextView) v.findViewById(R.id.tv_geolocalitation);
             tvDescription = (TextView) v.findViewById(R.id.tv_descripton);
+            tvTimestamp = (TextView) v.findViewById(R.id.tv_timestamp_item);
 
-            ivPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO GO TO POST FRAGMENT.
 
-                }
-            });
 
         }
     }
