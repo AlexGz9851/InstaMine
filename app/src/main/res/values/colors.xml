@@ -101,7 +101,7 @@
     <color name="cyan_2">#ffafecff</color>
     <color name="cyan_3">#ff82e1ff</color>
     <color name="cyan_4">#ff54d7ff</color>
-    <color name="cyan_5">#ff27c4f5</color>
+    <color name="cyan_5">#27C4F5</color>
     <color name="cyan_6">#ff03a1d1</color>
     <color name="cyan_7">#ff00779d</color>
     <color name="cyan_8">#ff004c64</color>
@@ -114,9 +114,9 @@
     <color name="direct_blue_gradient_dark">#ff0b70e1</color>
     <color name="direct_blue_gradient_light">#ff42b8f7</color>
     <color name="direct_blue_ring_gradient_colour1">#ff4ac9ff</color>
-    <color name="direct_blue_ring_gradient_colour2">#ff4caeff</color>
-    <color name="direct_blue_ring_gradient_colour3">#ff4d93ff</color>
-    <color name="direct_blue_ring_gradient_colour4">#ff2a6dea</color>
+    <color name="direct_blue_ring_gradient_colour2">#4CAEFF</color>
+    <color name="direct_blue_ring_gradient_colour3">#4D93FF</color>
+    <color name="direct_blue_ring_gradient_colour4">#2A6DEA</color>
     <color name="direct_blue_ring_gradient_colour5">#ff0747d5</color>
     <color name="direct_gradient_bright_end">@color/teal</color>
     <color name="direct_gradient_bright_pressed_end">@color/blueteal_5</color>
@@ -250,7 +250,7 @@
     <color name="slider_sticker_background">@color/white</color>
     <color name="slider_sticker_question_hint">@color/grey_3</color>
     <color name="slider_sticker_question_text">@color/black</color>
-    <color name="solid_white">#ffffffff</color>
+    <color name="solid_white">#FFFFFF</color>
     <color name="status_bar_background">#ffb2b2b2</color>
     <color name="status_bar_background_light_semitransparent">@color/black_6_transparent</color>
     <color name="sticker_subtle_dark_background">#99b4b4b4</color>

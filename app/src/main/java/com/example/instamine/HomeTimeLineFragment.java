@@ -81,6 +81,7 @@ public class HomeTimeLineFragment extends Fragment {
         final ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         //Defining constraints
         postQuery.setLimit(NUMBER_OF_RESULTS); // limit to at most N results
+        postQuery.include(Post.KEY_USER); // including object ( not just reference) of user. ( natural join implicit)
         //executing query in a bkg thread.
         postQuery.findInBackground(new FindCallback<Post>() {
             @Override
@@ -94,8 +95,9 @@ public class HomeTimeLineFragment extends Fragment {
                     //populate timeline with new posts.
                     ArrayList<Post> mPost = HomeTimeLineFragment.this.posts;
                     for(int i = 0 ;i<postsAnswer.size();i++){
-                        mPost.add(postsAnswer.get(i));
-                        postAdapter.notifyItemInserted(mPost.size()-1);
+                        mPost.add(0,postsAnswer.get(i));
+                        postAdapter.notifyItemInserted(0);
+                        rvPosts.scrollToPosition(0);
                     }
                     // Now we call setRefreshing(false) to signal refresh has finished
                     swipeContainer.setRefreshing(false);
@@ -105,5 +107,7 @@ public class HomeTimeLineFragment extends Fragment {
             }
         });
     }
-
+    public void scrollToStart(){
+        rvPosts.scrollToPosition(0);
+    }
 }

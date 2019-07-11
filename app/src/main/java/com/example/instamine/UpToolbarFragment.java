@@ -27,7 +27,9 @@ public class UpToolbarFragment extends Fragment {
         logo = v.findViewById(R.id.ivLogo);
         camera = v.findViewById(R.id.ivCamera);
 
+        // Setting listeners to each imageView ( pseudo Btns)
         close.setOnClickListener(new View.OnClickListener() {
+            // Log Out.
             @Override
             public void onClick(View v) {
                 ((HomeActivity)getActivity()).logOut(v);
@@ -37,13 +39,18 @@ public class UpToolbarFragment extends Fragment {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // take a picture, go to preview activity
                 Intent i = new Intent(getContext(), PreviewActivity.class);
                 startActivity(i);
             }
         });
-        //TODO LINKS A DIFERENTES ACTIVIDADES O FRAGMENTS.
-
-
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // return ( or keep ) to hometimeline
+                ((HomeActivity)getActivity()).replaceFragment(new HomeTimeLineFragment());
+            }
+        });
     }
 
 }

@@ -17,6 +17,8 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     private static final String TAG = "TimelineFragment";
@@ -48,12 +50,20 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
         //populating views according data
         viewHolder.tvDescription.setText(post.getDescription());
         ParseUser postUser = post.getUser();
-        //viewHolder.tvUsername.setText(postUser.getUsername());
+        viewHolder.tvUsername.setText(postUser.getUsername());
+        viewHolder.tvGeolocalization.setText(post.getGeolocalization());
         ParseFile photo = post.getImage();
+        ParseFile profilePhoto = postUser.getParseFile("ProfilePhoto");
         try {
+            int radius = 70;
+            int margin = 10;
             Glide.with(context)
                     .load(photo.getFile())
                     .into(viewHolder.ivPost);
+            Glide.with(context)
+                    .load(profilePhoto.getFile())
+                    .bitmapTransform(new RoundedCornersTransformation(context, radius, margin))
+                    .into(viewHolder.ivProfileUser);
             //TODO ADD IMAGES FROM POST
         }catch (ParseException e){
             Log.e(TAG, "Cant load image", new Throwable());
@@ -90,7 +100,7 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
             super(v);
 
             ivPost = (ImageView) v.findViewById(R.id.iv_image_post);
-            ivProfileUser = (ImageView) v.findViewById(R.id.iv_like_post);
+            ivProfileUser = (ImageView) v.findViewById(R.id.iv_mini_profile_post);
             ivLike = (ImageView) v.findViewById(R.id.iv_like_post);
             ivComment = (ImageView) v.findViewById(R.id.iv_comment_post);
             ivDirectMessage = (ImageView) v.findViewById(R.id.iv_dm_post);
@@ -98,6 +108,13 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
             tvGeolocalization = (TextView) v.findViewById(R.id.tv_geolocalitation);
             tvDescription = (TextView) v.findViewById(R.id.tv_descripton);
 
+            ivPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO GO TO POST FRAGMENT.
+
+                }
+            });
 
         }
     }

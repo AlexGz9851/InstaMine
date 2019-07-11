@@ -12,6 +12,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:clickable="true"
         android:contentDescription="@string/content_description_post"
         app:layout_constraintBottom_toTopOf="@+id/iv_comment_post"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +44,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/lorem_ipsum"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_geolocalitation"
         app:layout_constraintStart_toEndOf="@+id/iv_mini_profile_post"
         app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +105,7 @@
         android:id="@+id/tv_descripton"
         android:layout_width="0dp"
         android:layout_height="53dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/lorem_ipsum"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -115,12 +118,14 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="#00FFFFFF"
         android:contentDescription="@string/lorem_ipsum"
         app:layout_constraintBottom_toTopOf="@+id/tv_descripton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/iv_dm_post"
         app:layout_constraintTop_toBottomOf="@+id/iv_image_post"
-        app:srcCompat="@android:color/background_light" />
+        app:srcCompat="@color/transparent" />
 
 </android.support.constraint.ConstraintLayout>
