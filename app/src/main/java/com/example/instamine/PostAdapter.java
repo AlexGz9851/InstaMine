@@ -15,6 +15,9 @@ import com.bumptech.glide.Glide;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         //get data according position
         final Post post = this.posts.get(i);
 
@@ -55,8 +58,22 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
         viewHolder.tvUsername.setText(postUser.getUsername());
         viewHolder.tvGeolocalization.setText(post.getGeolocalization());
         viewHolder.tvTimestamp.setText(Utilities.getRelativeTimeAgo(post.getCreatedAt()));
+
+        JSONArray x = post.getUsersWhoLikedPost();
+        if(x!=null){
+            viewHolder.tvNumberOfLikes.setText(String.format("%d Likes", x.length()));
+        }else{
+            viewHolder.tvNumberOfLikes.setText(String.format("%d Likes",0));
+        }
+
         ParseFile photo = post.getImage();
         ParseFile profilePhoto = postUser.getParseFile("ProfilePhoto");
+
+        if(!post.isLiked()){
+            viewHolder.ivLike.setImageResource(R.drawable.ufi_heart);
+        }else{
+            viewHolder.ivLike.setImageResource(R.drawable.ufi_heart_active);
+        }
 
         viewHolder.ivPost.setOnClickListener(new View.OnClickListener() {
             //Cambio de actividad a post
@@ -69,6 +86,40 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("post", post);
                 postFragment.setArguments(bundle);
+
+            }
+        });
+
+        viewHolder.ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//TODO LIKE GIVEN
+                if(!post.isLiked()){
+                    //LIKED POST
+                    post.likePost(ParseUser.getCurrentUser());
+                    viewHolder.ivLike.setImageResource(R.drawable.ufi_heart_active);
+                    post.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e!=null){e.printStackTrace();}
+                        }
+                    });
+                }else{//UNLIKE POST
+
+                    post.unlikePost(ParseUser.getCurrentUser());
+                    viewHolder.ivLike.setImageResource(R.drawable.ufi_heart);
+                    post.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e!=null){e.printStackTrace();}
+                        }
+                    });
+                }
+                JSONArray x = post.getUsersWhoLikedPost();
+                if(x!=null){
+                    viewHolder.tvNumberOfLikes.setText(String.format("%d Likes", x.length()));
+                }else{
+                    viewHolder.tvNumberOfLikes.setText(String.format("%d Likes",0));
+                }
 
             }
         });
@@ -113,7 +164,7 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
     // create the viewHolder
     public static class  ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPost, ivProfileUser, ivLike, ivComment, ivDirectMessage;
-        TextView tvUsername, tvGeolocalization, tvDescription, tvTimestamp;
+        TextView tvUsername, tvGeolocalization, tvDescription, tvTimestamp,tvNumberOfLikes;
 
         public ViewHolder(View v){
             super(v);
@@ -127,6 +178,7 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
             tvGeolocalization = (TextView) v.findViewById(R.id.tv_geolocalitation);
             tvDescription = (TextView) v.findViewById(R.id.tv_descripton);
             tvTimestamp = (TextView) v.findViewById(R.id.tv_timestamp_item);
+            tvNumberOfLikes = (TextView) v.findViewById(R.id.tv_number_likes_item);
 
 
 

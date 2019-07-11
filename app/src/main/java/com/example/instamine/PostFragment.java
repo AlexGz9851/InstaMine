@@ -14,6 +14,9 @@ import com.bumptech.glide.Glide;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -62,14 +65,58 @@ public class PostFragment extends Fragment {
             ivPost = view.findViewById(R.id.iv_image_post);
             ivLike = view.findViewById(R.id.iv_like_post);
 
+            if(!post.isLiked()){
+                ivLike.setImageResource(R.drawable.ufi_heart);
+            }else{
+                ivLike.setImageResource(R.drawable.ufi_heart_active);
+            }
+
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {//TODO LIKE GIVEN
+                    if(!post.isLiked()){
+                        //LIKED POST
+                        post.likePost(ParseUser.getCurrentUser());
+                        ivLike.setImageResource(R.drawable.ufi_heart_active);
+                        post.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e!=null){e.printStackTrace();}
+                            }
+                        });
+                    }else{//UNLIKE POST
+
+                        post.unlikePost(ParseUser.getCurrentUser());
+                        ivLike.setImageResource(R.drawable.ufi_heart);
+                        post.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e!=null){e.printStackTrace();}
+                            }
+                        });
+                    }
+                    JSONArray x = post.getUsersWhoLikedPost();
+                    if(x!=null){
+                        tvNumberOflikes.setText(String.format("%d Likes", x.length()));
+                    }else{
+                        tvNumberOflikes.setText(String.format("%d Likes",0));
+                    }
+
+                }
+            });
+
             //setting values on post
             tvDescription.setText(post.getDescription());
             tvUsername.setText(user.getUsername());
             tvGeolocalization.setText(post.getGeolocalization());
             //setting timestamp
             tvTimestamp.setText(Utilities.getRelativeTimeAgo(post.getCreatedAt()));
-            tvNumberOflikes.setText(String.format("%d Likes", 0));//TODO number of likes, make relation on Database, like --> i++
-
+            JSONArray x = post.getUsersWhoLikedPost();
+            if(x!=null){
+                tvNumberOflikes.setText(String.format("%d Likes", x.length()));
+            }else{
+                tvNumberOflikes.setText(String.format("%d Likes",0));
+            }
             //setting images
             try {
                 ParseFile profilePhoto = user.getParseFile("ProfilePhoto");
