@@ -5,6 +5,7 @@ import android.text.format.DateUtils;
 import java.util.Date;
 
 public  class Utilities {
+    // Utils class.
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
     public static String getRelativeTimeAgo(Date date) {

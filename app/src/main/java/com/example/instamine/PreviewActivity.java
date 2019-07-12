@@ -31,21 +31,22 @@ import java.io.OutputStream;
 
 public class PreviewActivity extends AppCompatActivity {
 
-    ParseUser user;
-
-    public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public final static String TAG=PreviewActivity.class.getSimpleName();
-    public String photoFileName = "photo.jpg";
-    File photoFile;
-    ImageView ivPreviewPhoto ;
-    EditText etDescription;
-    Button btnPost;
+    public final static String APP_TAG = "MyCustomApp";
+    public final static String photoFileName = "photo.jpg";
+
+    private ParseUser user;
+    private File photoFile;
+    private ImageView ivPreviewPhoto ;
+    private EditText etDescription;
+    private Button btnPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
+
         user = ParseUser.getCurrentUser();
         ivPreviewPhoto= (ImageView) findViewById(R.id.ivPhotoTaken);
         etDescription = (EditText) findViewById(R.id.et_descriptonPost);
@@ -91,8 +92,6 @@ public class PreviewActivity extends AppCompatActivity {
         photoFile = getPhotoFileUri(photoFileName);
 
         // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(this, "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
@@ -127,35 +126,21 @@ public class PreviewActivity extends AppCompatActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
 
-
-
                 // by this point we have the camera photo on disk
-                //Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                //Getting image rotated  to correct orientation.
                 Bitmap takenImageRotated  = rotateBitmapOrientation(photoFile.getAbsolutePath());// modified THIS
-
-
-                //// RESIZE BITMAP,// modified THIS
-                //Uri takenPhotoUri = Uri.fromFile(getPhotoFileUri(photoFileName));
-                ///// by this point we have the camera photo on disk
-                // Bitmap rawTakenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-
 
                 int width = ivPreviewPhoto.getWidth();
 
-                // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
                 Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(takenImageRotated, width);// modified THIS
 
                 try(OutputStream os = new FileOutputStream(photoFile)) {
-                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 75, os);
-
-
-
+                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 75, os);//getting right final format.
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
 
                 // Load the taken image into a preview
                 ivPreviewPhoto.setImageBitmap(resizedBitmap);

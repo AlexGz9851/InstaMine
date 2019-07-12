@@ -35,12 +35,15 @@ public class LogInActivity extends AppCompatActivity {
 
         } else {
             // show the login screen
+
+            // getting view components.
             setContentView(R.layout.activity_login);
             login_btn = findViewById(R.id.btn_login);
             username_et = findViewById(R.id.et_username);
             password_et = findViewById(R.id.et_password);
             signUp_btn = findViewById(R.id.btn_signUp);
 
+            // setting listeners.
             login_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -49,7 +52,6 @@ public class LogInActivity extends AppCompatActivity {
                     login(username, password );
                 }
             });
-
             signUp_btn.setOnClickListener(new View.OnClickListener(){
 
                 @Override
@@ -64,6 +66,7 @@ public class LogInActivity extends AppCompatActivity {
 
 
     }
+
     private void goToHome(){
         Intent i = new Intent(LogInActivity.this, HomeActivity.class);
         startActivity(i);

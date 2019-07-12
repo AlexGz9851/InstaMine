@@ -9,7 +9,7 @@
     <color name="action_bar_transparent_background">#20000000</color>
     <color name="action_bar_transparent_background_pressed_state">#30000000</color>
     <color name="ads_manager_subtitle_color">#8a000000</color>
-    <color name="ads_manager_title_color">#de000000</color>
+    <color name="ads_manager_title_color">#DE000000</color>
     <color name="avatar_stroke">@color/black_20_transparent</color>
     <color name="bioTextEntityFontColor">@color/blue_8</color>
     <color name="black">#000000</color>

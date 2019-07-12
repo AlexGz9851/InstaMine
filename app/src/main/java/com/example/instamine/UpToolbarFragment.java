@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 public class UpToolbarFragment extends Fragment {
     // it is called when you want create the layout of the fragment. Dinamically or using an XML made.
-    ImageView close, logo, camera;
+    private ImageView close, logo, camera;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_up_toolbar, parent,false);
@@ -35,7 +35,6 @@ public class UpToolbarFragment extends Fragment {
                 ((HomeActivity)getActivity()).logOut(v);
             }
         });
-
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +46,7 @@ public class UpToolbarFragment extends Fragment {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // return ( or keep ) to hometimeline
+                // (return  to | or keep on )  hometimeline
                 ((HomeActivity)getActivity()).replaceFragment(new HomeTimeLineFragment());
             }
         });

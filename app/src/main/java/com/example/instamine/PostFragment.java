@@ -23,17 +23,16 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class PostFragment extends Fragment {
 
-    public Post post;
-    public ParseUser user;
-    Context context;
+    private Post post;
+    private ParseUser user;
+    private Context context;
 
-    TextView tvDescription, tvUsername, tvGeolocalization, tvTimestamp, tvNumberOflikes;
-    ImageView ivProfilePhoto, ivPost, ivComment, ivLike;
+    private  TextView tvDescription, tvUsername, tvGeolocalization, tvTimestamp, tvNumberOflikes;
+    private ImageView ivProfilePhoto, ivPost, ivComment, ivLike;
 
-    int radius, margin;
+    private int radius, margin;
 
-    public PostFragment() {
-        // Required empty public constructor
+    public PostFragment() {// Required empty public constructor
     }
 
 
@@ -46,9 +45,10 @@ public class PostFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-            radius = 70;
+            radius = 1000;
             margin = 10;
             context = getContext();
+
             //get post
             Bundle bundle = getArguments();
             post = (Post) bundle.getParcelable("post");
@@ -65,11 +65,30 @@ public class PostFragment extends Fragment {
             ivPost = view.findViewById(R.id.iv_image_post);
             ivLike = view.findViewById(R.id.iv_like_post);
 
+            //setting like view state.
             if(!post.isLiked()){
                 ivLike.setImageResource(R.drawable.ufi_heart);
             }else{
                 ivLike.setImageResource(R.drawable.ufi_heart_active);
             }
+
+            //setting Listeners in each pseudo button.
+
+            ivProfilePhoto.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    // i couldnt set the onClickGoToBio(View v) on XML, it not recognize the method
+                    //and dont know why.
+                    onClickGoToBio();
+
+                }
+            });
+            tvUsername.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    onClickGoToBio();
+                }
+            });
 
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,6 +130,7 @@ public class PostFragment extends Fragment {
             tvGeolocalization.setText(post.getGeolocalization());
             //setting timestamp
             tvTimestamp.setText(Utilities.getRelativeTimeAgo(post.getCreatedAt()));
+
             JSONArray x = post.getUsersWhoLikedPost();
             if(x!=null){
                 tvNumberOflikes.setText(String.format("%d Likes", x.length()));
@@ -123,6 +143,7 @@ public class PostFragment extends Fragment {
                 Glide.with(context)
                     .load(profilePhoto.getFile())
                     .bitmapTransform(new RoundedCornersTransformation(context, radius, margin))
+                        .override(400,400)
                     .into(ivProfilePhoto);
             }catch (ParseException e){
                 e.printStackTrace();
@@ -137,5 +158,9 @@ public class PostFragment extends Fragment {
             }
     }
 
+    public void onClickGoToBio(){
+        // send to profile bio fragment
+        ((HomeActivity)getActivity()).replaceFragment(new BioFragment());
+    }
 
 }

@@ -13,7 +13,7 @@
     <string name="comment">comment</string>
     <string name="direct_message">Send Direct message to:</string>
     <string name="like_post">Like Post</string>
-
+    <string name="Posts">Posts</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -7,6 +7,8 @@ import com.parse.ParseObject;
 
 public class ParseApp extends Application {
 
+    // this class manages our sesion with the parseServer.
+
     @Override
     public void onCreate(){
         super.onCreate();

@@ -14,9 +14,9 @@ import com.parse.SignUpCallback;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    ParseUser user;
-    EditText usernameET, passwordET, emailET;
-    Button signUp_btn;
+    private  ParseUser user;
+    private EditText usernameET, passwordET, emailET;
+    private Button signUp_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,6 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
-                    //TODO
                     Log.e("SignUpActivity", "Couldnt sign up");
                 }
             }

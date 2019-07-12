@@ -30,7 +30,6 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
     private  List<Post> posts;
     private  Context context;
 
-    //TODO ADAPTER
     public PostAdapter(List<Post> posts){
         this.posts = posts;
 
@@ -125,14 +124,22 @@ public class PostAdapter extends  RecyclerView.Adapter<PostAdapter.ViewHolder>{
         });
 
         try {
-            int radius = 70;
-            int margin = 10;
             Glide.with(context)
                     .load(photo.getFile())
                     .into(viewHolder.ivPost);
+            //TODO ADD IMAGES FROM POST
+        }catch (ParseException e){
+            Log.e(TAG, "Cant load image", new Throwable());
+            e.printStackTrace();
+        }
+
+        try {
+            int radius = 1000;
+            int margin = 30;
             Glide.with(context)
                     .load(profilePhoto.getFile())
                     .bitmapTransform(new RoundedCornersTransformation(context, radius, margin))
+                    .override(400, 400)
                     .into(viewHolder.ivProfileUser);
             //TODO ADD IMAGES FROM POST
         }catch (ParseException e){

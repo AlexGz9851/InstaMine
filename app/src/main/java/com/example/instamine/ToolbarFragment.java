@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class ToolbarFragment extends Fragment {
 
-    ImageView home, profile, add;
+    private ImageView home, profile, add;
 
     // it is called when you want create the layout of the fragment. Dinamically or using an XML made.
     @Override
@@ -23,7 +23,6 @@ public class ToolbarFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         home = view.findViewById(R.id.icon_home);
         add = view.findViewById(R.id.icon_add);
         profile = view.findViewById(R.id.icon_profile);
@@ -49,7 +48,8 @@ public class ToolbarFragment extends Fragment {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO PROFILE STUFF.
+                // send to profile bio fragment
+                ((HomeActivity)getActivity()).replaceFragment(new BioFragment());
             }
         });
 
