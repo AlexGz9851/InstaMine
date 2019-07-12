@@ -2,7 +2,7 @@
 
 **InstaMine** is a photo sharing app using Parse as its backend.
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -26,7 +26,7 @@ The following **stretch** features are implemented:
 - [x] Show the username and creation time for each post
 - [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 - User Profiles:
-  - [ ] Allow the logged in user to add a profile photo
+  - [x] Allow the logged in user to add a profile photo
   - [x] Display the profile photo with each post
   - [ ] Tapping on a post's username or profile photo goes to that user's profile page
 - [ ] User can comment on a post and see all comments for each post in the post details screen.
@@ -34,9 +34,6 @@ The following **stretch** features are implemented:
 - [ ] Create a custom Camera View on your phone.
 - [ ] Run your app on your phone and use the camera to take the photo
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -47,20 +44,14 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+<img src='20190712_011912.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Credits
 
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
-- [Android Async Http Client](http://loopj.com/android-async-http/) - networking library
+- [Heroku](https://dashboard.heroku.com/) - online Parse server
 
-
-## Notes
-
-Describe any challenges encountered while building the app.
 
 ## License
 
